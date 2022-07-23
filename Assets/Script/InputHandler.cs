@@ -13,8 +13,9 @@ namespace Kramer
         public float mouseY;
 
         public bool roll_Input;
-
         public bool rollFlag;
+        public bool sprintFlag;
+        public float rollInputTimer;
         public bool isInteracting;
 
         PlayerControls inputActions;
@@ -77,7 +78,18 @@ namespace Kramer
 
             if (roll_Input)
             {
-                rollFlag = true;
+                rollInputTimer += delta;
+                sprintFlag = true;
+            }
+            else
+            {
+                if (rollInputTimer > 0 && rollInputTimer < 0.5f)
+                {
+                    sprintFlag = false;
+                    rollFlag = true;
+                }
+
+                rollInputTimer = 0;
             }
         }
     }
